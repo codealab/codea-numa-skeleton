@@ -1,0 +1,27 @@
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to image_tag("http://www.gob.mx/cms/uploads/identity/image/2537/logo-codigox.png",
+      alt: "Codigo X", :height => 32),
+      root_path,
+      class: "navbar-brand logo both-logos",
+      id: "logo_tag" %>
+      <%= link_to image_tag("https://codealab.files.wordpress.com/2016/07/codeacamp_logo.png",
+                    alt: "Codea", :height => 32),
+                    root_path,
+                    class: "navbar-brand logo pull-right both-logos",
+                    id: "logo_codea" %>
+    <div class="collapse navbar-collapse" id="main-menu" >
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Propón con Twitter", twitter_proposal_path %></li>
+        <li><%= link_to "Propuestas", proposals_path %></li>
+        <li><%= link_to "Nueva propuesta", new_proposal_path %></li>
+      </ul>
+    </div>
+  </div>
+</nav>

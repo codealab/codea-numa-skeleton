@@ -1,0 +1,39 @@
+<div id="first_section">
+  <div class="container">
+    <div class="jumbotron well">
+      <h1 class="text-center">Artistas favoritos de <%= image_tag("http://www.gob.mx/cms/uploads/identity/image/2537/logo-codigox.png", alt: "TagCDMX", :height => 100)  %></h1>
+    </div>
+  </div><!-- container -->
+</div>
+<div class="container container-margin">
+  <div class="row">
+    <% if @proposals.any? %>
+      <% @proposals.each do |proposal| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail thumbnail-fix">
+            <% if proposal.avatar == "" %>
+              <%= link_to image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png",
+                                    class:"pull-left username-card-img"), proposal_path(proposal) %>
+            <% else %>
+              <% avatar = proposal.avatar.gsub!("_normal", "_bigger") %>
+              <%= link_to image_tag(avatar == nil ? proposal.avatar : avatar,
+                    class:"pull-left username-card-img"), proposal_path(proposal) %>
+            <% end %>
+            <div class="caption">
+              <h5 class="text-center username-card" style="display:inline-block">
+                <%= link_to proposal.name, proposal_path(proposal) %>
+              </h5>
+              <br>
+              <%= link_to "", edit_proposal_path(proposal),
+                                              class: "btn btn-warning btn-xs glyphicon glyphicon-pencil" %>
+              <%= link_to "", proposal_path(proposal),
+                    method: :delete,
+                    data: { confirm: "¿Seguro que quieres eliminar la propuesta?" },
+                    class: "btn btn-danger btn-xs glyphicon glyphicon-trash" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
