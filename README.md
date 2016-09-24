@@ -619,7 +619,7 @@ Regresa a tu pestaña de Terminal en la que trabajamos (la primera) y preparate 
 
 A continuación haremos algunos cambios a nuestras vistas para acceder a esta funcionalidad. Lo primero será crear un link para agregar propuestas desde Twitter en el `header` de tu aplicación.
 
-Necesitamos un controlador que se encargará de agrupar las funciones relacionadas con Twitter, para generarlo ejecuta el siguiente comando en tu consola:
+Necesitamos un controlador que se encargará de agrupar las funciones relacionadas con Twitter, para generarlo ejecuta el siguiente comando en la primera pestaña de tu consola:
 
 ```bash
 $ rails generate controller twitter
