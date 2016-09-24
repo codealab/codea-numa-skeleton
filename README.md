@@ -182,7 +182,7 @@ La acción anterior trae de la base de datos todas las `Proposals` y como especi
 <div id="first_section">
   <div class="container">
     <div class="jumbotron well">
-      <h1 class="text-center">Propuestas para Código X</h1>
+      <h1 class="text-center">Artistas favoritos de <%= image_tag("http://www.gob.mx/cms/uploads/identity/image/2537/logo-codigox.png", alt: "TagCDMX", :height => 100)  %></h1>
     </div>
   </div><!-- container -->
 </div>
@@ -255,7 +255,7 @@ La acción anterior crea una `Proposal` vacía y como especifica el comentario, 
 ``` erb
 <div id="first_section">
   <div class="container">
-    <h1 class="text-center">Agrega tu propuesta</h1>
+    <h1 class="text-center">Agrega tu artista</h1>
     <div class="row">
       <%= form_for @proposal do |f| %>
 
@@ -285,9 +285,9 @@ La acción anterior crea una `Proposal` vacía y como especifica el comentario, 
    proposal = Proposal.find_by(name: params[:proposal][:name])
    if proposal == nil
      @proposal = Proposal.create(proposal_params)
-     flash[:success] = "Propuesta Agregada"
+     flash[:success] = "Artista Agregado"
    else
-     flash[:danger] = "No puedes duplicar una propuesta"
+     flash[:danger] = "No puedes duplicar un artista"
    end
    redirect_to proposals_path
   end
@@ -425,7 +425,7 @@ El formulario anterior se enviará a la acción `update` de nuestro controlador.
   def update
     @proposal = Proposal.find(params[:id])
     @proposal.update(proposal_params)
-    flash[:success] = "Propuesta actualizada"
+    flash[:success] = "Artista actualizado"
     redirect_to proposal_path
   end
 ```
@@ -440,7 +440,8 @@ La última funcionalidad que agregaremos para completar el CRUD es borrar una `P
   def destroy
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
-    flash[:danger] = "Propuesta borrada"
+    flash[:danger] = "Artista borrado
+    "
     redirect_to proposals_path
   end
 ```
@@ -466,9 +467,9 @@ class ProposalsController < ApplicationController
     proposal = Proposal.find_by(name: params[:proposal][:name])
     if proposal == nil
       @proposal = Proposal.create(proposal_params)
-      flash[:success] = "Propuesta Agregada"
+      flash[:success] = "Artista Agregado"
     else
-      flash[:danger] = "No puedes duplicar una propuesta"
+      flash[:danger] = "No puedes duplicar un artista"
     end
     redirect_to proposals_path
    end
@@ -487,14 +488,14 @@ class ProposalsController < ApplicationController
   def update
     @proposal = Proposal.find(params[:id])
     @proposal.update(proposal_params)
-    flash[:success] = "Propuesta actualizada"
+    flash[:success] = "Artista actualizado"
     redirect_to proposal_path
   end
 
   def destroy
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
-    flash[:danger] = "Propuesta borrada"
+    flash[:danger] = "Artista borrado"
     redirect_to proposals_path
   end
 
@@ -514,21 +515,22 @@ end
 
 Un **API** es una "Librería" creada para poder comunicarse con un software en particular, de manera sencilla. Normalmente esta librería contiene funciones, especificaciones y procedimientos que te permiten comunicarte con ese software para recibir servicios del mismo.
 
-Un ejemplo muy sencillo es lo que lograremos al integrar la **[API de Twitter](https://dev.twitter.com/overview/api)** y la aplicación de artistas para Código X **[Codea-CódigoX](http://codea-codigox.herokuapp.com/)**, desarrollada por **[Codea](http://www.codea.mx)**.
+Un ejemplo muy sencillo es lo que lograremos al integrar la **<a href="https://dev.twitter.com/overview/api" target="_blank">API de Twitter</a>** y la aplicación de artistas para Código X **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CódigoX</a>**, desarrollada por **<a href="http://www.codea.mx" target="_blank">Codea</a>**.
 
 Tu aplicación podrá buscar a través de **Twitter** información pública de sus usuarios para utilizarlos como propuestas. Para ello nos comunicaremos con **Twitter** utilizando su API y después mandaremos las propuestas creadas a **Codea-CodigoX** para que podamos ver cuáles artistas fueron agregados.
 
 - Si no tienes cuenta de Twitter o no tienes registrado tu número en la misma puedes seguir estos links para realizarlo:
 
-**[Crear cuenta de Twitter](https://twitter.com/signup)**
+**<a href="https://twitter.com/signup" target="_blank">Crear cuenta de Twitter</a>**
 
-**[Registrar número móvil en tu cuenta de Twitter](https://twitter.com/settings/devices)**
+**<a href="https://twitter.com/settings/devices" target="_blank">Registrar número móvil en tu cuenta de Twitter</a>**
+
 
 Esto es un requisito de la sección de desarrolladores de Twitter para poder crear tu aplicación.
 
 ### Creación de un Twitter Client
 
-El primer paso para agregar esta funcionalidad será obtener los códigos de autorización que nos da Twitter para acceder a sus servicios. Entra a la siguiente ruta para hacerlo: [https://dev.twitter.com/apps/new](https://dev.twitter.com/apps/new).
+El primer paso para agregar esta funcionalidad será obtener los códigos de autorización que nos da Twitter para acceder a sus servicios. Entra a la siguiente ruta para hacerlo: **<a href="https://dev.twitter.com/apps/new" target="_blank">https://dev.twitter.com/apps/new</a>**.
 
 A continuación vamos a llenar todos los campos que Twitter nos pide para crear nuestra aplicación.
 
@@ -559,7 +561,7 @@ Este token te permitirá que las propuestas que agregues a tu aplicación aparez
 
 Para conseguir este token debes acceder a la aplicación de Codea-CodigoX entrando al siguiente link:
 
-- [Codea-CodigoX](http://codea-codigox.herokuapp.com/)
+- **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>**
 
 Aquí debes dar click al botón 'Inicio con Twitter' ubicado en la barra de navegación de tu aplicación.
 
@@ -583,7 +585,7 @@ CODEA_API_TOKEN:
 
 - Ve a la página de tu aplicación en Twitter y agrega en el archivo `twitter_secrets.yml` los tokens correspondientes después de los dos puntos.
 
-- Copia el `API token` que se encuentra en la sección `Profile` de la aplicación web de [Codea-CodigoX](http://codea-codigox.herokuapp.com/) y agrégalo en el espacio correspondiente en tu archivo `twitter_secrets.yml`.
+- Copia el `API token` que se encuentra en la sección `Profile` de la aplicación web de **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>** y agrégalo en el espacio correspondiente en tu archivo `twitter_secrets.yml`.
 
 - Al finalizar este archivo con los tokens añadidos deberá lucir parecido al siguiente:
 
@@ -651,9 +653,9 @@ class TwitterController < ApplicationController
     if proposal == nil
       @proposal = Proposal.create(proposal_params)
       @proposal.send_to_codea
-      flash[:success] = "Propuesta Agregada"
+      flash[:success] = "Artista Agregado"
     else
-      flash[:danger] = "No puedes duplicar una propuesta"
+      flash[:danger] = "No puedes duplicar un artista"
     end
     redirect_to proposals_path
   end
@@ -669,9 +671,9 @@ end
 
 Los siguientes links te servirán como documentación para entender de donde salió parte del código anterior.
 ​
-- [Esta es la documentación de cómo utilizar la gema para hacer peticiones a twitter](http://www.rubydoc.info/gems/twitter)
-- [De esta parte de la documentación sacamos el método para buscar usuarios](http://www.rubydoc.info/gems/twitter/Twitter/REST/Users#user_search-instance_method)
-- [Aquí aprendimos con el método 'attrs' a conocer los atributos que podemos utilizar para cada usuario](http://www.rubydoc.info/gems/twitter/Twitter/User)
+- **<a href="http://www.rubydoc.info/gems/twitter" target="_blank">Esta es la documentación de cómo utilizar la gema para hacer peticiones a twitter</a>**
+- **<a href="http://www.rubydoc.info/gems/twitter/Twitter/REST/Users#user_search-instance_method" target="_blank">De esta parte de la documentación sacamos el método para buscar usuarios</a>**
+- **<a href="http://www.rubydoc.info/gems/twitter/Twitter/User" target="_blank">Aquí aprendimos con el método 'attrs' a conocer los atributos que podemos utilizar para cada usuario</a>**
 
 **Recuerda grabar tus archivos después de cada modificación.**
 
@@ -679,7 +681,7 @@ En la carpeta 'codea-codigox/app/views/twitter/twitter_proposal.html.erb' hemos 
 
 Con esto ya podrás acceder a tu nueva página en tu aplicación ('Propón con Twitter'), en ella podrás buscar y agregar nuevas propuestas a tu aplicación, intenta agregar varias propuestas por este medio y checa como se ven en tu página principal de propuestas.
 
-Entra a [Codea-CodigoX](http://codea-codigox.herokuapp.com/) y podrás ver las propuestas que agregaste y las que han hecho otros usuarios.
+Entra a **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>** y podrás ver las propuestas que agregaste y las que han hecho otros usuarios.
 
 
 ## <center>¡¡ Felicidades acabas de crear tu primera app de Rails !!</center>
