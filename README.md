@@ -563,7 +563,7 @@ Para conseguir este token debes acceder a la aplicación de Codea-CodigoX entran
 
 - **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>**
 
-Aquí debes dar click al botón 'Inicio con Twitter' ubicado en la barra de navegación de tu aplicación.
+Aquí debes dar click al botón 'Inicio con Twitter' ubicado en la barra de navegación de tu aplicación y autorizar a Twitter para que se conecte con la aplicación.
 
 ![Sign In with Twitter](https://codealab.files.wordpress.com/2016/09/codigox_twitter_signin2.png)
 
@@ -583,7 +583,7 @@ ACCESS_TOKEN_SECRET:
 CODEA_API_TOKEN:
 ```
 
-- Ve a la página de tu aplicación en Twitter y agrega en el archivo `twitter_secrets.yml` los tokens correspondientes después de los dos puntos.
+- Ve a la página de tu aplicación en Twitter y agrega en el archivo `twitter_secrets.yml` los tokens correspondientes después de los dos puntos y un espacio.
 
 - Copia el `API token` que se encuentra en la sección `Profile` de la aplicación web de **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>** y agrégalo en el espacio correspondiente en tu archivo `twitter_secrets.yml`.
 
