@@ -14,7 +14,7 @@ Bundler.require(*Rails.groups)
 
 # Este modulo se encarga de interpretar el archivo que contiene tus tokens
 # y agregarlos como variables de entorno para tu aplicación.
-module CodeaTAG
+module Codea
   class Application < Rails::Application
     config.active_record.raise_in_transactional_callbacks = true
     config.before_configuration do

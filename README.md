@@ -174,6 +174,51 @@ Para crear un objeto `Proposal` necesitamos usar dos acciones:
     # render 'proposals/index.html.erb'
   end
 ```
+La acción anterior trae de la base de datos todas las `Proposals` y como especifica el comentario, se mostrará el archivo 'codea-codigox/app/views/proposals/index.html.erb'.
+
+- Copia el siguiente código que combina HTML y Ruby para enlistar los `proposals` que trajimos de la base de datos.
+
+``` erb
+<div id="first_section">
+  <div class="container">
+    <div class="jumbotron well">
+      <h1 class="text-center">Propuestas para Código X</h1>
+    </div>
+  </div><!-- container -->
+</div>
+<div class="container container-margin">
+  <div class="row">
+    <% if @proposals.any? %>
+      <% @proposals.each do |proposal| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail thumbnail-fix">
+            <% if proposal.avatar == "" %>
+              <%= link_to image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png",
+                                    class:"pull-left username-card-img"), proposal_path(proposal) %>
+            <% else %>
+              <% avatar = proposal.avatar.gsub!("_normal", "_bigger") %>
+              <%= link_to image_tag(avatar == nil ? proposal.avatar : avatar,
+                    class:"pull-left username-card-img"), proposal_path(proposal) %>
+            <% end %>
+            <div class="caption">
+              <h5 class="text-center username-card" style="display:inline-block">
+                <%= link_to proposal.name, proposal_path(proposal) %>
+              </h5>
+              <br>
+              <%= link_to "", edit_proposal_path(proposal),
+                                              class: "btn btn-warning btn-xs glyphicon glyphicon-pencil" %>
+              <%= link_to "", proposal_path(proposal),
+                    method: :delete,
+                    data: { confirm: "¿Seguro que quieres eliminar la propuesta?" },
+                    class: "btn btn-danger btn-xs glyphicon glyphicon-trash" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+```
 
 > ####Levantando el servidor
 >
@@ -203,13 +248,39 @@ El link a tu aplicación te saldrá del lado derecho de tu Terminal en una alert
   end
 ```
 
+La acción anterior crea una `Proposal` vacía y como especifica el comentario, se mostrará el archivo 'codea-codigox/app/views/proposals/new.html.erb'.
+
+- Pega el siguiente código HTML en este archivo.
+
+``` erb
+<div id="first_section">
+  <div class="container">
+    <h1 class="text-center">Agrega tu propuesta</h1>
+    <div class="row">
+      <%= form_for @proposal do |f| %>
+
+      <div class="proposal-input col-md-offset-3 col-md-6 ">
+        <%= f.text_field :name,   placeholder: "Nombre", class: "form-control" %>
+      </div>
+      <div class="proposal-input col-md-offset-3 col-md-6 ">
+        <%= f.text_field :avatar, placeholder: "Avatar", class: "form-control" %>
+      </div>
+      <div class="proposal-input col-md-offset-3 col-md-6">
+        <%= f.submit "Crear", class: "btn btn-md btn-primary btn-block" %>
+      </div>
+      <% end %>
+    </div><!-- first_section -->
+  </div><!-- container -->
+</div>
+```
+
 - Una vez que hemos hecho esto, podemos ver nuestro formulario dando click al link de `Nueva propuesta` en la barra de navegación de tu aplicación. Si agregas una propuesta y le das click al botón `crear` verás un error, esto es porque no hemos creado el método `create`.
 
 #### Acción `create`
 
 - Al llenar y darle click a `Crear` en el formulario anterior éste se enviará a la acción de `create` de nuestro controlador. Necesitamos crear la acción en el controlador con el siguiente código, que contendrá la lógica para crear y guardar el `proposal` en la base de datos, pegalo debajo de tu acción `new`:
 
-``` ruby
+```ruby
   def create
    proposal = Proposal.find_by(name: params[:proposal][:name])
    if proposal == nil
@@ -254,6 +325,53 @@ Con este método ya podemos crear propuestas nuevas. Agrega por lo menos 3 propu
 
 La acción anterior trae de la base de datos una `Proposal` pasándole un `id`. Para acceder al id de la url, utilizamos el hash `params`.
 
+Esta acción mostrará el archivo 'codea-codigox/app/views/proposals/show.html.erb'.
+
+- Accede a este archivo y copia en él el siguiente código que mostrará el detalle del `Proposal` que trajimos de la base de datos.
+
+``` erb
+<div class="row container-margin first-row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+      <div class="panel-body flex-center">
+        <% if @proposal.avatar == "" %>
+          <%= image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png", class:"img-responsive show-img")%>
+        <% else %>
+          <% avatar = @proposal.avatar.gsub!("_normal", "") %>
+          <%= image_tag(avatar == nil ? @proposal.avatar : avatar, class:"img-responsive show-img")%>
+        <% end %>
+      </div>
+      <div class="panel-footer text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h2><%= @proposal.name %></h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-4 options-margin">
+            <% counter = @counter == "" ? 0 : @counter %>
+            <div class="btn btn-danger btn-xs counter-show"><%= counter %></div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4">
+            <% if @proposal.twitter_handle != nil %>
+              <%= link_to image_tag("http://icons.veryicon.com/png/Application/Android%20Lollipop%20Apps/Twitter.png", class:"twitter_link", height: "40px", style: "margin-bottom: 10px;"), "http://www.twitter.com/#{@proposal.twitter_handle}", target: "_blank"%>
+            <% end %>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4 options-margin">
+            <%= link_to "", edit_proposal_path(@proposal),
+                                    class: "btn btn-warning btn-xs glyphicon glyphicon-pencil" %>
+            <%= link_to "", proposal_path(@proposal),
+                  method: :delete,
+                  data: { confirm: "¿Seguro que quieres eliminar la propuesta?" },
+                  class: "btn btn-danger btn-xs glyphicon glyphicon-trash" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
 - Ahora navega a tu página principal de propuestas y da click al nombre de alguna de ellas para que veas la página que acabas de crear.
 
 
@@ -268,6 +386,30 @@ La acción `edit`, nos permitirá corregir una `Proposal` en caso de que nos hay
     @proposal = Proposal.find(params[:id])
     # render 'proposals/edit.html.erb'
   end
+```
+
+- Agrega el siguiente código al archivo 'codea-codigox/app/views/proposals/edit.html.erb':
+
+``` erb
+<div id="first_section">
+  <div class="container">
+    <h1 class="text-center">Editar Propuesta</h1>
+    <div class="row">
+      <%= form_for @proposal do |f| %>
+
+      <div class="proposal-input col-md-offset-3 col-md-6 ">
+        <%= f.text_field :name,   placeholder: "Nombre", class: "form-control" %>
+      </div>
+      <div class="proposal-input col-md-offset-3 col-md-6 ">
+        <%= f.text_field :avatar, placeholder: "Avatar", class: "form-control" %>
+      </div>
+      <div class="proposal-input col-md-offset-3 col-md-6">
+        <%= f.submit "Guardar", class: "btn btn-md btn-primary btn-block" %>
+      </div>
+      <% end %>
+    </div><!-- first_section -->
+  </div><!-- container -->
+</div>
 ```
 
 Con esto ya funcionan los links para editar `E` en las propuestas de tu página `index` y `show`. Al dar click en cualquiera de estos links, podemos ver nuestra forma, la cual al guardarla genera un error al no encontrar el método 'update' el cual crearemos a continuación.
