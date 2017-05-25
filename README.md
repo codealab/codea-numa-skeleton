@@ -1,18 +1,18 @@
-# Tutorial Codea | CódigoX
+# Tutorial Codea | Numa
 
-### Crear cuenta en Cloud9
-Entra a la página de **[Cloud9](https://c9.io)** y crea una cuenta, seguramente tendrás que activarla en el mail con el que te registraste.
+### Crear cuenta en Codenvy
+Entra a la página de **[Codenvy](https://codenvy.io/site/login)** y crea una cuenta, seguramente tendrás que activarla en el mail con el que te registraste.
 
 ### Crear un nuevo workspace
 1. Da click en 'Create a new workspace'
-2. En el campo **Create workspace** escribe: `codea-codigox`
-3. En el campo **Description** puedes explicar brevemente lo que hará tu aplicación o usar nuestra descripción: `This app creates a dashboard with your favourite artists using Twitter API and sends them to Codea-CodigoX app.`
-4. En la opción **Hosted Workspace** seleccionar **'Public'**
-5. En el campo **Clone from Git or Mercurial URL** vamos a pegar la siguiente URL: `https://github.com/codealab/esqueleto_codigox`. Esto nos permite clonar (copiar) un esqueleto  con el código mínimo para empezar con tu aplicación.
-6. En **Choose a template** seleccionamos el template `Ruby`.
-7. Da click en **Create workspace** para pasar al siguiente paso.
+2. En la sección **Select Source** selecciona la opción de **Import from existing location** y en el campo de **Git URL** vamos a pegar la siguiente URL: `https://github.com/codealab/codea-numa-skeleton`. Esto nos permite clonar (copiar) un esqueleto  con el código mínimo para empezar con tu aplicación.
+3. En la sección de **Select Workspace** selecciona **Create new workspace from stack** y selecciona **Rails**, esto nos ayudará a que el entorno de trabajo esté preconfigurado.
+4. En la sección de **Configure workspace** deberás poner como nombre **codea-numa**
+7. Da click en **Create** para terminar esta configuración y pasar al siguiente paso.
 
-![Cloud9 Workspace](https://codealab.files.wordpress.com/2016/09/codigox_creating_workspace.png)
+Tu `workspace` ya configurado deberá lucir así:
+
+![Codenvy Workspace](https://codealab.files.wordpress.com/2016/09/codigox_creating_workspace.png)
 
 ### Interfaz de Cloud9
 **Familiarízate con la interfaz de Cloud9**
