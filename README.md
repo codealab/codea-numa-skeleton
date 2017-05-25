@@ -5,19 +5,9 @@ Entra a la página de **[Codenvy](https://codenvy.io/site/login)** y crea una cu
 
 ### Crear un nuevo workspace
 1. Da click en 'Create a new workspace'
-2. En la sección **Select Source** selecciona la opción de **Import from existing location** y en el campo de **Git URL** vamos a pegar la siguiente URL: `https://github.com/codealab/codea-numa-skeleton`. Esto nos permite clonar (copiar) un esqueleto  con el código mínimo para empezar con tu aplicación.
 3. En la sección de **Select Workspace** selecciona **Create new workspace from stack** y selecciona **Rails**, esto nos ayudará a que el entorno de trabajo esté preconfigurado.
 4. En la sección de **Configure workspace** deberás poner como nombre **codea-numa**
 7. Da click en **Create** para terminar esta configuración y pasar al siguiente paso.
-
-Tu `workspace` ya configurado deberá lucir así:
-
-![Codenvy Workspace](https://codealab.files.wordpress.com/2016/09/codigox_creating_workspace.png)
-
-### Interfaz de Cloud9
-**Familiarízate con la interfaz de Cloud9**
-
-![Cloud9 Interface](https://codealab.files.wordpress.com/2016/09/codigox_interface_cloud9.png)
 
 ## Objetivos Académicos
 
@@ -62,31 +52,45 @@ Para ello crearemos un modelo Propuesta que estará compuesto de 3 atributos:
 
 ## Actividades
 
-Todas las siguientes instrucciones serán ejecutadas en **Cloud9**. Si necesitas ayuda entendiendo el funcionamiento del sistema pregunta a uno de los instructores.
+Todas las siguientes instrucciones serán ejecutadas en **Codenvy**. Si necesitas ayuda entendiendo el funcionamiento del sistema pregunta a uno de los instructores.
 
-La estructura de archivos de tu aplicación la puedes encontrar en el lado izquierdo de la interfaz de Cloud9, dentro de la carpeta 'codea-codigox' están todos los archivos que consituyen tu aplicación.
+El primer paso será clonar el esquelo de la aplicación, el cual hemos diseñado para hacer más fácil esta experiencia de aprendizaje, dentro de la terminal de `Codenvy` deberás ejecutar el siguiente comando:
+
+```
+  git clone https://github.com/codealab/codea-numa-skeleton
+```
+
+Una vez que hagamos esto el sistema descargará toda la información del repositorio remoto, para acceder a ella en consola usaremos el comando
+
+```
+  cd codea-numa-skeleton
+```
+
+La estructura de archivos de tu aplicación la puedes encontrar en el lado izquierdo de la interfaz de Codenvy, dentro de la carpeta 'codea-numa-skeleton' están todos los archivos que constituyen tu aplicación.
 
 ## Configura tu aplicación
 
-- El primer paso es instalar las gemas que necesita tu aplicación para funcionar. Una gema es una librería de código que añade funcionalidades específicas a tu aplicación. Ejecuta el siguiente comando en la Terminal (Consola) ubicada en la parte inferior de la interfaz de Cloud9:
+- El primer paso es instalar las gemas que necesita tu aplicación para funcionar. Una gema es una librería de código que añade funcionalidades específicas a tu aplicación. Ejecuta el siguiente comando en la Terminal (Consola) ubicada en la parte inferior de la interfaz de Codenvy:
 
 ```bash
-$ bundle update
+  $ bundle update
 ```
 
-- En el esqueleto que te damos existe el archivo `/db/migrate/20160601223404_create_proposals.rb` el cual contiene los atributos del modelo **Proposals** para relacionarlo con la Base de Datos. El siguiente comando ejecuta este archivo, creando una tabla y agregándole esos atributos a la DB. Recuerda ejecutarlo en la Terminal:
+- En el esqueleto que te damos existe el archivo `/db/migrate/20160601223404_create_proposals.rb` el cual contiene los atributos del modelo **Proposals** para relacionarlo con la Base de Datos. Da doble clic al archivo si quieres revisar su contenido, pero no vamos a modificar nada de él.
+
+El siguiente comando ejecuta este archivo, creando una tabla y agregándole esos atributos a la DB. Recuerda ejecutarlo en la Terminal:
 
 ``` bash
-$ rake db:migrate
+  $ rake db:migrate
 ```
 
-- Vamos a crear el controlador para el modelo **Proposals**. En tu Terminal ejecuta el siguiente comando:
+- Vamos a crear el controlador que se encargará de determinar las acciones para el modelo **Proposals**. En tu Terminal ejecuta el siguiente comando:
 
 ``` bash
-$ rails generate controller proposals
+  $ rails generate controller proposals
 ```
 
-Este comando nos crea el archivo `codea-codigox/app/controllers/proposals_controller.rb`. Dentro de este archivo vamos a crear la funcionalidad necesaria para las acciones del CRUD de **Proposals**.
+Este comando nos crea el archivo `codea-numa-skeleton/app/controllers/proposals_controller.rb`. Encuentralo y abrelo, dentro de este archivo vamos a crear la funcionalidad necesaria para las acciones del CRUD de **Proposals**.
 
 
 ### CRUD de `Proposals`
@@ -162,7 +166,7 @@ Para crear un objeto `Proposal` necesitamos usar dos acciones:
 - `new` - Nos sirve para desplegar un formulario al usuario, donde introducirá el nombre y el link a la foto de la nueva `Proposal`.
 - `create` - Nos servirá para crear y guardar la nueva `Proposal` en la base de datos.
 
-**Es importante recordar que todas las acciones (métodos) del controlador las añadirás al archivo `codea-codigox/app/controllers/proposals_controller.rb` dentro de la clase `ProposalsController`, lo que significa que va entre las líneas `class ProposalsController < ApplicationController` y `end`.**
+**Es importante recordar que todas las acciones (métodos) del controlador las añadirás al archivo `codea-numa-skeleton/app/controllers/proposals_controller.rb` dentro de la clase `ProposalsController`, lo que significa que va entre las líneas `class ProposalsController < ApplicationController` y `end`.**
 
 #### Acción `index`
 
@@ -174,7 +178,7 @@ Para crear un objeto `Proposal` necesitamos usar dos acciones:
     # render 'proposals/index.html.erb'
   end
 ```
-La acción anterior trae de la base de datos todas las `Proposals` y como especifica el comentario, se mostrará el archivo 'codea-codigox/app/views/proposals/index.html.erb'.
+La acción anterior trae de la base de datos todas las `Proposals` y como especifica el comentario, se mostrará el archivo 'codea-numa-skeleton/app/views/proposals/index.html.erb'.
 
 - Copia el siguiente código que combina HTML y Ruby para enlistar los `proposals` que trajimos de la base de datos.
 
@@ -182,7 +186,7 @@ La acción anterior trae de la base de datos todas las `Proposals` y como especi
 <div id="first_section">
   <div class="container">
     <div class="jumbotron well">
-      <h1 class="text-center">Artistas favoritos de <%= image_tag("http://www.gob.mx/cms/uploads/identity/image/2537/logo-codigox.png", alt: "TagCDMX", :height => 100)  %></h1>
+      <h1 class="text-center">Artistas favoritos de <%= image_tag("https://mexico.numa.co/wp-content/uploads/sites/8/2016/05/logo_NUMA_kleinblue.png", alt: "Numa", :height => 100)  %></h1>
     </div>
   </div><!-- container -->
 </div>
@@ -222,19 +226,11 @@ La acción anterior trae de la base de datos todas las `Proposals` y como especi
 
 > ####Levantando el servidor
 >
->Para poder visualizar nuestra aplicación en el navegador, tenemos que levantar nuestro servidor web. Te recomendamos abrir una nueva pestaña de terminal y ejecutar tu servidor en ella.
-Esto lo haces dando click al símbolo de mas (+) que está junto a las pestañas de tu terminal y en el menú que se abre selecciona `New Terminal`.
-En esa nueva pestaña ejecuta el siguiente comando:
->
->```bash
->$ rails s -p $PORT -b $IP
->```
+>Para poder visualizar nuestra aplicación en el navegador, tenemos que levantar nuestro servidor web.
 
-En este punto Cloud9 nos da acceso a una url como la siguiente `https://codea-codigox-username.c9users.io/`, en donde verás la página default de bienvenida de Rails.
+Esto lo lograremos al dar click en el botón `Run` de la aplicación.
 
-El link a tu aplicación te saldrá del lado derecho de tu Terminal en una alerta verde, puedes darle click para que te abra una nueva pestaña con tu aplicación.
-
-![Loading Server](https://codealab.files.wordpress.com/2016/09/codigox_loading_server.png)
+En este punto Codenvy nos da acceso a una url como la siguiente `http://node30.codenvy.io:41769/`, en donde verás la página de bienvenida de tu aplicación. Puedes encontrar el link en la sección de la consola con la etiqueta `Preview:`
 
 
 #### Acción `new`
@@ -248,7 +244,7 @@ El link a tu aplicación te saldrá del lado derecho de tu Terminal en una alert
   end
 ```
 
-La acción anterior crea una `Proposal` vacía y como especifica el comentario, se mostrará el archivo 'codea-codigox/app/views/proposals/new.html.erb'.
+La acción anterior crea una `Proposal` vacía y como especifica el comentario, se mostrará el archivo 'codea-numa-skeleton/app/views/proposals/new.html.erb'.
 
 - Pega el siguiente código HTML en este archivo.
 
@@ -274,7 +270,7 @@ La acción anterior crea una `Proposal` vacía y como especifica el comentario, 
 </div>
 ```
 
-- Una vez que hemos hecho esto, podemos ver nuestro formulario dando click al link de `Nueva propuesta` en la barra de navegación de tu aplicación. Si agregas una propuesta y le das click al botón `crear` verás un error, esto es porque no hemos creado el método `create`.
+- Una vez que hemos hecho esto, ve al preview de tu aplicación donde podemos ver nuestro formulario dando click al link de `Nueva propuesta` en la barra de navegación de tu aplicación. Si agregas una propuesta y le das click al botón `crear` verás un error, esto es porque no hemos creado el método `create`.
 
 #### Acción `create`
 
@@ -299,9 +295,9 @@ La acción anterior crea una `Proposal` vacía y como especifica el comentario, 
     end
 ```
 
-En este código definimos dos métodos `create` que guarda nuestra propuesta y utiliza el otro método, `proposal_params` el cual es privado y se encarga de recibir los parámetros que envió la forma y omitir información no permitida.
+En este código definimos dos métodos: `create` que guarda nuestra propuesta y utiliza el otro método, y `proposal_params` el cual es privado y se encarga de recibir los parámetros que envió la forma y omitir información no permitida.
 
-**Recuerda grabar tu controlador después de añadir nuevo código, todas las acciones nuevas deberás pegarlas antes de la palabra clave `private` y después del último método definido**
+**Recuerda grabar tu controlador después de añadir nuevo código, todas las siguientes acciones nuevas deberás pegarlas antes de la palabra clave `private` y después del último método definido**
 
 El método 'create' crea una nueva `Proposal` con los parámetros que le pasó el formulario. Después la guarda y redirige al usuario a `proposals_path` que es la vista `index`.
 
@@ -325,7 +321,7 @@ Con este método ya podemos crear propuestas nuevas. Agrega por lo menos 3 propu
 
 La acción anterior trae de la base de datos una `Proposal` pasándole un `id`. Para acceder al id de la url, utilizamos el hash `params`.
 
-Esta acción mostrará el archivo 'codea-codigox/app/views/proposals/show.html.erb'.
+Esta acción mostrará el archivo 'codea-numa-skeleton/app/views/proposals/show.html.erb'.
 
 - Accede a este archivo y copia en él el siguiente código que mostrará el detalle del `Proposal` que trajimos de la base de datos.
 
@@ -388,7 +384,7 @@ La acción `edit`, nos permitirá corregir una `Proposal` en caso de que nos hay
   end
 ```
 
-- Agrega el siguiente código al archivo 'codea-codigox/app/views/proposals/edit.html.erb':
+- Agrega el siguiente código al archivo 'codea-numa-skeleton/app/views/proposals/edit.html.erb':
 
 ``` erb
 <div id="first_section">
@@ -412,7 +408,7 @@ La acción `edit`, nos permitirá corregir una `Proposal` en caso de que nos hay
 </div>
 ```
 
-Con esto ya funcionan los links para editar `E` en las propuestas de tu página `index` y `show`. Al dar click en cualquiera de estos links, podemos ver nuestra forma, la cual al guardarla genera un error al no encontrar el método 'update' el cual crearemos a continuación.
+Con esto ya funcionan los botones de editar, un lapiz con fondo amarillo, en las propuestas de tu página `index` y `show`. Al dar click en cualquiera de estos links, podemos ver nuestra forma, la cual al guardarla genera un error al no encontrar el método 'update' el cual crearemos a continuación.
 
 
 #### Acción `update`
@@ -446,7 +442,7 @@ La última funcionalidad que agregaremos para completar el CRUD es borrar una `P
   end
 ```
 
-Este código hace que funcionen el link de la 'basurita' de cada propuesta para borrarla. Pruebalo esta funcionalidad borrando cualquiera de las propuestas que has añadido.
+Este código hace que funcionen el link de borrar, un bote de basura con fondo rojo de cada propuesta para borrarla. Pruebalo esta funcionalidad borrando cualquiera de las propuestas que has añadido.
 
 Tu archivo de controlador debe contener el siguiente código al final de estos pasos:
 
@@ -515,9 +511,9 @@ end
 
 Un **API** es una "Librería" creada para poder comunicarse con un software en particular, de manera sencilla. Normalmente esta librería contiene funciones, especificaciones y procedimientos que te permiten comunicarte con ese software para recibir servicios del mismo.
 
-Un ejemplo muy sencillo es lo que lograremos al integrar la **<a href="https://dev.twitter.com/overview/api" target="_blank">API de Twitter</a>** y la aplicación de artistas para Código X **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CódigoX</a>**, desarrollada por **<a href="http://www.codea.mx" target="_blank">Codea</a>**.
+Un ejemplo muy sencillo es lo que lograremos al integrar la **<a href="https://dev.twitter.com/overview/api" target="_blank">API de Twitter</a>** y la aplicación de propuestas para Numa **<a href="https://codea-numa.herokuapp.com/" target="_blank">Codea-Numa</a>**, desarrollada por **<a href="http://www.codea.mx" target="_blank">Codea</a>**.
 
-Tu aplicación podrá buscar a través de **Twitter** información pública de sus usuarios para utilizarlos como propuestas. Para ello nos comunicaremos con **Twitter** utilizando su API y después mandaremos las propuestas creadas a **Codea-CodigoX** para que podamos ver cuáles artistas fueron agregados.
+Tu aplicación podrá buscar a través de **Twitter** información pública de sus usuarios para utilizarlos como propuestas. Para ello nos comunicaremos con **Twitter** utilizando su API y después mandaremos las propuestas creadas a **codea-numa-skeleton** para que podamos ver cuáles artistas fueron agregados.
 
 - Si no tienes cuenta de Twitter o no tienes registrado tu número en la misma puedes seguir estos links para realizarlo:
 
@@ -530,13 +526,13 @@ Esto es un requisito de la sección de desarrolladores de Twitter para poder cre
 
 ### Creación de un Twitter Client
 
-El primer paso para agregar esta funcionalidad será obtener los códigos de autorización que nos da Twitter para acceder a sus servicios. Entra a la siguiente ruta para hacerlo: **<a href="https://dev.twitter.com/apps/new" target="_blank">https://dev.twitter.com/apps/new</a>**.
+El primer paso para agregar esta funcionalidad será obtener los códigos de autorización que nos da Twitter para acceder a sus servicios. Entra a la siguiente ruta para hacerlo: **<a href="https://apps.twitter.com/app/new" target="_blank">https://dev.twitter.com/apps/new</a>**.
 
 A continuación vamos a llenar todos los campos que Twitter nos pide para crear nuestra aplicación.
 
-1. En el campo **Name:** escribe `codea-codigox-` seguido de tu nombre o identificador favorito.
-2. En **Description:** puedes explicar brevemente lo que hará tu aplicación o usar nuestra descripción: `This app creates a dashboard with your favourite artists using Twitter API and sends them to Codea-CodigoX app.`
-3. En **Website:** copia el link que Cloud9 te dio para tu aplicación. Algo parecido a `https://codea-codigox-username.c9users.io/`.
+1. En el campo **Name:** escribe `codea-numa-` seguido de tu nombre o identificador favorito.
+2. En **Description:** puedes explicar brevemente lo que hará tu aplicación o usar nuestra descripción: `This app creates a dashboard with your favourite artists using Twitter API and sends them to codea-numa app.`
+3. En **Website:** copia el link que Codenvy te dio para tu aplicación. Algo parecido a `http://node30.codenvy.io:41769/`.
 4. En **Callback URL:** vuelve a copiar la misma URL que pusiste en el campo anterior.
 5. Para terminar este paso deberás aceptar los términos y condiciones de Twitter seleccionando el 'checkbox' debajo de éstas.
 6. Darle click a `Create your Twitter application`.
@@ -557,11 +553,11 @@ No cierres esta página pues la usaremos más adelante. En este punto deberás t
 
 ### Obtener token de Codea
 
-Este token te permitirá que las propuestas que agregues a tu aplicación aparezcan en la página principal de **Codea-CodigoX**, se publiquen en **Twitter* y podamos ver todos los artistas agregados.
+Este token te permitirá que las propuestas que agregues a tu aplicación aparezcan en la página principal de **codea-numa-skeleton**, se publiquen en **Twitter* y podamos ver todos los artistas agregados.
 
-Para conseguir este token debes acceder a la aplicación de Codea-CodigoX entrando al siguiente link:
+Para conseguir este token debes acceder a la aplicación de codea-numa-skeleton entrando al siguiente link:
 
-- **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>**
+- **<a href="http://codea-numa.herokuapp.com/" target="_blank">codea-numa-skeleton</a>**
 
 Aquí debes dar click al botón 'Inicio con Twitter' ubicado en la barra de navegación de tu aplicación y autorizar a Twitter para que se conecte con la aplicación.
 
@@ -571,9 +567,9 @@ Esto nos va a loggear en nuestra aplicación por medio de la API de Twitter. Pos
 
 ![Codea Token](https://codealab.files.wordpress.com/2016/09/codigox_codea_token2.png)
 
-### Configurar la API de Twitter y Codea-CodigoX
+### Configurar la API de Twitter y codea-numa-skeleton
 
-La información que generamos en el paso anterior es privada y te pertenece, para protegerla utilizaremos un archivo de Rails en dónde guardaremos tus `tokens` y nadie podrá acceder a ellos más que tú, para esto deberás navegar al archivo 'codea/config/twitter_secret.yml' donde verás el siguiente código:
+La información que generamos en el paso anterior es privada y te pertenece, para protegerla utilizaremos un archivo de Rails en dónde guardaremos tus `tokens` y nadie podrá acceder a ellos más que tú, para esto deberás navegar al archivo 'codea-numa-skeleton/config/twitter_secret.yml' donde verás el siguiente código:
 
 ```ruby
 CONSUMER_KEY:
@@ -585,7 +581,7 @@ CODEA_API_TOKEN:
 
 - Ve a la página de tu aplicación en Twitter y agrega en el archivo `twitter_secrets.yml` los tokens correspondientes después de los dos puntos y un espacio.
 
-- Copia el `API token` que se encuentra en la sección `Profile` de la aplicación web de **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>** y agrégalo en el espacio correspondiente en tu archivo `twitter_secrets.yml`.
+- Copia el `API token` que se encuentra en la sección `Profile` de la aplicación web de **<a href="http://codea-numa.herokuapp.com/" target="_blank">Codea-Numa</a>** y agrégalo en el espacio correspondiente en tu archivo `twitter_secrets.yml`.
 
 - Al finalizar este archivo con los tokens añadidos deberá lucir parecido al siguiente:
 
@@ -597,17 +593,11 @@ Estos códigos no funcionan, así que no los copies a tu aplicación, ten el cui
 
 Tu aplicación necesita ahora recargar los archivos para que estos funcionen, para ellos tiraremos nuestro servidor y lo volveremos a levantar.
 
-- Muevete a la pestaña donde está corriendo tu servidor en la Terminal de Cloud9 y presiona `Ctrl + C` en tu teclado, esto te dará el mensaje 'Exiting' que indica que el servidor se ha detenido.
-
-En este punto si intentas recargar la página de tu aplicación te marcará un error que dirá 'No application seems to be running here!'. Para volver a levantar nuestro servidor debemos correr en la misma pestaña de la consola el siguiente código:
-
-```bash
-$ rails s -p $PORT -b $IP
-```
+- Muevete a la pestaña donde está corriendo tu servidor en la Terminal de Codenvy y cierra la pestaña llamada `run`, una vez que lo hagas vuelve a dar click al botón `Run` de `Codenvy`.
 
 Regresa a tu pestaña de Terminal en la que trabajamos (la primera) y preparate para hacer la integración con Twitter.
 
-## Integración con Twitter y Codea-CodigoX
+## Integración con Twitter y Codea-Numa
 
 - El archivo `/config/application.rb` se utiliza para definir algunos de los comportamientos básicos de tu aplicación. Dentro de este archivo agregaremos dos partes importantes:
 1. El método que lee los tokens del archivo `twitter_secrets.yml`
@@ -631,7 +621,7 @@ En el vamos a colocar los métodos que se encargarán de:
 - Buscar una propuesta en Twitter
 - Guardar una nueva propuesta de Twitter
 
-Todas estas funciones se ejecutan sustituyendo el contenido del archivo 'codea-codigox/app/controllers/twitter_controller.rb' por el siguiente código, lee los comentarios para entender la función de cada uno de ellos:
+Todas estas funciones se ejecutan sustituyendo el contenido del archivo 'codea-numa-skeleton/app/controllers/twitter_controller.rb' por el siguiente código, lee los comentarios para entender la función de cada uno de ellos:
 
 ```ruby
 class TwitterController < ApplicationController
@@ -677,11 +667,12 @@ Los siguientes links te servirán como documentación para entender de donde sal
 
 **Recuerda grabar tus archivos después de cada modificación.**
 
-En la carpeta 'codea-codigox/app/views/twitter/twitter_proposal.html.erb' hemos creado por ti los archivos de vistas necesarios para estas nuevas funcionalidades.
+En la carpeta 'codea-numa-skeleton/app/views/twitter/twitter_proposal.html.erb' hemos creado por ti los archivos de vistas necesarios para estas nuevas funcionalidades.
 
 Con esto ya podrás acceder a tu nueva página en tu aplicación ('Propón con Twitter'), en ella podrás buscar y agregar nuevas propuestas a tu aplicación, intenta agregar varias propuestas por este medio y checa como se ven en tu página principal de propuestas.
 
-Entra a **<a href="http://codea-codigox.herokuapp.com/" target="_blank">Codea-CodigoX</a>** y podrás ver las propuestas que agregaste y las que han hecho otros usuarios.
+Entra a **<a href="http://codea-numa.herokuapp.com/" target="_blank">Codea-Numa
+</a>** y podrás ver las propuestas que agregaste y las que han hecho otros usuarios.
 
 
 ## <center>¡¡ Felicidades acabas de crear tu primera app de Rails !!</center>
